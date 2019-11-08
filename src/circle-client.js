@@ -1,9 +1,7 @@
-import { 
-  triggerJob
-  cancelJob  } from './api/jobs';
-import popsicle from 'popsicle';
+import { triggerJob } from './api/jobs';
+import * as popsicle from 'popsicle';
 
-class CircleClient {
+export class CircleClient {
   /**
    * 
    * @param { String } token
@@ -29,8 +27,8 @@ class CircleClient {
    * 
    * @returns { Promise }
    */
-  runJob(revision = null, tag = null, build_parameters = {}) {
-    let request = triggerJob(revision, tag, build_parameters);
+  runJob(build_parameters = {}, revision = null, tag = null) {
+    let request = triggerJob(build_parameters, revision, tag);
 
     return popsicle.request(this._buildRequest(request))
       .use(popsicle.plugins.parse('json'))
@@ -66,7 +64,7 @@ class CircleClient {
     // Determine which endpoint to hit.
     switch (request.endpoint) {
       case 'project':
-        baseUrl = `${this._host}/${this._version}/project/${this._vcs}/${this._username}/${this._project}`;
+        baseUrl = `${this._host}/${this._version}/project/${this._vcs}/${this._username}/${this._project}?circle-token=${this._token}`;
         break;
     }
     
@@ -74,15 +72,13 @@ class CircleClient {
       url: baseUrl,
       method: request.method.toUpperCase(),
       headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + this._token,
-        'Content-type': 'application/json'
+        'Content-Type': 'application/json'
       }
     };
 
     // Check if request supports a body.
     if (request.body && ['POST', 'PATCH', 'PUT'].indexOf(request.method.toUpperCase()) >= 0) {
-      requestObject.body = body;
+      requestObject.body = request.body;
     }
 
     return requestObject;
@@ -106,27 +102,26 @@ class CircleClient {
    */
   _handleError(err) {
     let errorMsg;
+    const response = JSON.stringify(err);
 
     // Return message based on response code.
     switch (err.status) {
       case 400:
-        errorMsg = 'Bad request.';
+        errorMsg =`Bad request. ${response}`;
         break;
 
       case 403:
-        errorMsg = 'Access denied.';
+        errorMsg = `Access denied. ${response}`;
         break;
       
       case 500:
-        errorMsg = 'Server error.';
+        errorMsg = `Server error. ${response}`;
         break;
       
       default:
-        errorMsg = `An error occured: ${err}`;
+        errorMsg = `An error occured ${response}`;
     }
 
     return Promise.reject(Error(errorMsg));
   }
 }
-
-export default CircleClient;

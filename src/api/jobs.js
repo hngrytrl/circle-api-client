@@ -8,8 +8,8 @@
  * 
  * @see https://circleci.com/docs/api/#trigger-a-new-job
  */
-function triggerJob(revision, tag, build_opts) {
-  let body;
+function triggerJob(build_opts, revision = null, tag = null) {
+  let body = {};
   
   // CircleCI API does not allow both a revision and tag to be specified when triggering a build.
   if (revision != null && tag != null) {
@@ -23,7 +23,7 @@ function triggerJob(revision, tag, build_opts) {
   if (tag) body.tag = tag;
 
   // Add build_parameters if specified.
-  if (build_opts) body.build_parameters = build.opts;
+  if (build_opts) body.build_parameters = build_opts;
 
   return {
     "method": 'POST',

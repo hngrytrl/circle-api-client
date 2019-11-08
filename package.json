@@ -2,9 +2,10 @@
   "name": "circle-api-client",
   "version": "0.0.1",
   "description": "A Javascript API client for CircleCI ",
-  "main": "circle-client.js",
+  "main": "lib/circle-client.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src -d lib"
   },
   "repository": {
     "type": "git",
@@ -13,6 +14,10 @@
   "author": "hngrytrl",
   "license": "ISC",
   "dependencies": {
-    "popsicle": "^12.0.4"
+    "popsicle": "6.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0"
   }
 }
