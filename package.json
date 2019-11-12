@@ -1,10 +1,12 @@
 {
   "name": "@hngrytrl/circle-api-client",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A Javascript API client for CircleCI ",
   "main": "lib/circle-client.js",
   "type": "module",
-  "files": ["lib/*"],
+  "files": [
+    "lib/*"
+  ],
   "scripts": {
     "build": "babel src -d lib"
   },
@@ -19,6 +21,7 @@
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-plugin-add-module-exports": "^1.0.2",
     "babel-preset-env": "^1.7.0"
   }
 }
