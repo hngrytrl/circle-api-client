@@ -2,7 +2,7 @@ import {triggerJob, cancelJob, getJobInfo} from './api/jobs';
 import * as popsicle from 'popsicle';
 import base from "popsicle/dist/base";
 
-export class CircleClient {
+export default class CircleClient {
   /**
    *
    * @param { String } token
