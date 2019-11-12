@@ -1,9 +1,10 @@
 {
-  "name": "circle-api-client",
+  "name": "@hngrytrl/circle-api-client",
   "version": "0.0.1",
   "description": "A Javascript API client for CircleCI ",
   "main": "lib/circle-client.js",
   "type": "module",
+  "files": ["lib/*"],
   "scripts": {
     "build": "babel src -d lib"
   },
