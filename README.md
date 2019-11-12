@@ -15,10 +15,20 @@ const client = new CircleClient(circleci-token, org, project);
 const buildOpts = { CIRCLE_JOB: 'job-name' };
 client.runJob(buildOpts);
 
+// Trigger a job for a specific git commit.
+const buildOpts = { CIRCLE_JOB: 'job-name' };
+const sha = 'fdhsa376s'
+client.runJob(buildOpts, sha);
+
+// Trigger a job for a specific tag.
+const buildOpts = { CIRCLE_JOB: 'job-name' };
+const tag = 'v1.1'
+client.runJob(buildOpts, null, tag);
+
 // Get data on a build.
 // Pass in build number.
 client.getBuild('22');
 
 // Cancel a build.
-client.cancelBuild('22);
+client.cancelBuild('22');
 ```

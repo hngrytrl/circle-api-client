@@ -1,4 +1,4 @@
-import {triggerJob, cancelJob, getJobInfo} from './api/jobs';
+import { triggerJob, cancelJob, getJobInfo } from './api/jobs';
 import * as popsicle from 'popsicle';
 import base from "popsicle/dist/base";
 
@@ -40,9 +40,9 @@ export default class CircleClient {
   /**
    * Cancels a build.
    *
-   * @param {String} build_num
+   * @param { String } build_num
    *
-   * @returns {Promise}
+   * @returns { Promise }
    */
   cancelBuild(build_num) {
     let request = cancelJob(build_num);
@@ -56,9 +56,9 @@ export default class CircleClient {
   /**
    * Get info on a specific build.
    *
-   * @param {String} build_num
+   * @param { String } build_num
    *
-   * @returns {Promise}
+   * @returns { Promise }
    */
   getBuild(build_num) {
     let request = getJobInfo(build_num);
@@ -72,12 +72,7 @@ export default class CircleClient {
   /**
    * Builds requests to CircleCI API.
    *
-   * @param {
-   *          method
-   *          endpoint
-   *          headers
-   *          body
-   *        } request
+   * @param { method, endpoint, headers, body } request
    *
    * @returns { RequestObject }
    */
