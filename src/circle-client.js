@@ -27,7 +27,7 @@ export default class CircleClient {
    * @returns { Promise }
    */
   runJob(build_parameters = {}, revision = null, tag = null) {
-    return new Jobs(this).triggerJob(build_parameters, revision, tag);
+    return new Jobs().triggerJob(this, build_parameters, revision, tag);
   }
 
   /**
@@ -38,7 +38,7 @@ export default class CircleClient {
    * @returns { Promise }
    */
   cancelBuild(build_num) {
-    return new Jobs(this).cancelJob(build_num);
+    return new Jobs().cancelJob(this, build_num);
   }
 
   /**
@@ -49,6 +49,6 @@ export default class CircleClient {
    * @returns { Promise }
    */
   getBuild(build_num) {
-    return new Jobs(this).getJob(build_num);
+    return new Jobs().getJob(this, build_num);
   }
 }

@@ -1,13 +1,6 @@
 import BuildRequest from '../requests.js'
-import * as popsicle from "popsicle";
-
-let circleClient;
 
 export default class Jobs {
-  constructor(client) {
-    circleClient = client;
-  }
-
   /**
    * Triggers a build.
    *
@@ -15,8 +8,8 @@ export default class Jobs {
    * @param revision
    * @param tag
    */
-  triggerJob(build_parameters = {}, revision = null, tag = null) {
-    return new BuildRequest(circleClient).run(this._triggerJob(build_parameters, revision, tag));
+  triggerJob(client, build_parameters = {}, revision = null, tag = null) {
+    return new BuildRequest(client).run(this._triggerJob(build_parameters, revision, tag));
   }
 
   /**
@@ -24,8 +17,8 @@ export default class Jobs {
    *
    * @param build_num
    */
-  cancelJob(build_num) {
-    return new BuildRequest(circleClient).run(this._cancelJob(build_num));
+  cancelJob(client, build_num) {
+    return new BuildRequest(client).run(this._cancelJob(build_num));
   }
 
   /**
@@ -33,8 +26,8 @@ export default class Jobs {
    *
    * @param build_num
    */
-  getJob(build_num) {
-    return new BuildRequest(circleClient).run(this._getJobInfo(build_num));
+  getJob(client, build_num) {
+    return new BuildRequest(client).run(this._getJobInfo(build_num));
   }
 
   /**
